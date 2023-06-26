@@ -1,0 +1,43 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: xiaoya
+  labels:
+    app: xiaoya
+spec:
+  selector:
+    matchLabels:
+      app: xiaoya
+  template:
+    metadata:
+      labels:
+        app: xiaoya
+    spec:
+      initContainers:
+        - name: import-configs
+          image: docker.io/busybox:1.28
+          command: ['sh', '-c', "cp /data2/* /data/"]
+          volumeMounts:
+            - mountPath: /data2
+              name: config-volume
+            - mountPath: /data
+              name: data
+      containers:
+      - name: xiaoya
+        image: docker.io/xiaoyaliu/alist:latest
+        volumeMounts:
+        - name: data
+          mountPath: /data
+        ports:
+          - name: http
+            containerPort: 80
+            protocol: TCP
+      volumes:
+        - name: config-volume
+          configMap:
+            defaultMode: 511
+            name: config-app
+        - name: data
+          emptyDir:
+            sizeLimit: 500Mi

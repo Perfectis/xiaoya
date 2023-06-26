@@ -1,0 +1,11 @@
+
+deploy:
+- envsubst < mytoken.template.txt > mytoken.txt
+- envsubst < myopentoken.template.txt > myopentoken.txt
+- envsubst < temp_transfer_folder_id.template.txt > temp_transfer_folder_id.txt
+- kubectl apply -k .
+dev:
+  xiaoya:
+    command: bash
+    forward:
+      - 8080:80
