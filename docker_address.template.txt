@@ -1,0 +1,1 @@
+https://xiaoya-$OKTETO_NAMESPACE.$OKTETO_DOMAIN

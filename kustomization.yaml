@@ -7,6 +7,10 @@ configMapGenerator:
   - myopentoken.txt
   - temp_transfer_folder_id.txt
   - alishare_list.txt
+  - docker_address.txt
+  - guestpass.txt
+  - guestlogin.txt
+  - show_my_ali.txt
 resources:
 - deployment.yaml
 - service.yaml
